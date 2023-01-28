@@ -1,4 +1,4 @@
-const Intern = require("../library/Intern")
+const {Intern} = require("../library/Intern")
 
 describe ("Intern", () => {
   describe ("constructor", () => {

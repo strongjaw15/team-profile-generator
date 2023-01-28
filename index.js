@@ -5,6 +5,7 @@ const {Engineer, engineerQuestions} = require("./library/Engineer")
 const {Intern, internQuestions} = require("./library/Intern")
 const {Manager, managerQuestions} = require("./library/Manager")
 
+// This is the first part of the html string.
 let finalString = 
 `<!DOCTYPE html>
 <html lang="en">
@@ -18,19 +19,17 @@ let finalString =
 </head>
 <body>
   <header>
-    <div class="card border-light mb-3">
-      <div class="card-body">
         <h1>My Team</h1>
-      </div>
-    </div>
   </header>
   
   
   <main>`
 
+// These will be populated with engineer and itern cards.
 let engineerString = ``
 let internString = ``
 
+// This is the last part of the html string.
 const footerString = 
 ` </main>
 
@@ -55,7 +54,7 @@ function getManager(){
 // This creates the manager card and puts it into the final string.
 function createManager(manager){
   finalString = finalString.concat(
-    `<div class="card border-primary mb-3">
+    `<div class="card text-bg-primary mb-3">
       <div class="card-header">
         ${manager.getName()}<br>
         &#x1F377; ${manager.getRole()}
@@ -101,10 +100,10 @@ function addEngineer(){
   })
 }
 
-// This creates the engineer card and puts it into the final string.
+// This creates an engineer card.
 function createEngineer(engineer){
   engineerString = engineerString.concat(
-    `<div class="card border-success mb-3">
+    `<div class="card text-bg-success mb-3">
       <div class="card-header">
         ${engineer.getName()}<br>
         &#x1F37A; ${engineer.getRole()}
@@ -128,10 +127,10 @@ function addIntern(){
   })
 }
 
-// This creates the intern card and puts it into the final string.
+// This creates an intern card.
 function createIntern(intern){
   internString = internString.concat(
-    `<div class="card border-info mb-3">
+    `<div class="card text-bg-info mb-3">
       <div class="card-header">
         ${intern.getName()}<br>
         &#x1F95B; ${intern.getRole()}
