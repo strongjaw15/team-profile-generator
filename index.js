@@ -1,11 +1,12 @@
 const inquirer = require("inquirer")
 const fs = require("fs")
 
-const Employee = require("./library/Employee")
+//echo \"Error: no test specified\" && exit 1 // This is from the test param in package.
+
+// const Employee = require("./library/Employee")
 const Engineer = require("./library/Engineer")
 const Intern = require("./library/Intern")
 const Manager = require("./library/Manager")
-const { listenerCount } = require("process")
 
 let finalString = 
 `<!DOCTYPE html>
@@ -78,7 +79,7 @@ function getManager(){
 // This creates the manager card and puts it into the final string.
 function createManager(manager){
   const managerString = 
-  `<div class="card border-primary mb-3" style="width: 18rem;">
+  `<div class="card border-primary mb-3">
     <div class="card-header">
       ${manager.name}<br>
       &#x1F377; ${manager.getRole()}
@@ -110,7 +111,7 @@ const menu = () => {
         break;
       case "Add an Intern": addIntern()
         break;
-      case "Finish Building Team": writeEngineers()
+      case "Finish Building Team": writeHtml()
         break;
     }
   }
@@ -150,7 +151,7 @@ function addEngineer(){
 // This creates the engineer card and puts it into the final string.
 function createEngineer(engineer){
   engineerString = engineerString.concat(
-  `<div class="card border-success mb-3" style="width: 18rem;">
+  `<div class="card border-success mb-3">
     <div class="card-header">
       ${engineer.name}<br>
       &#x1F37A; ${engineer.getRole()}
@@ -198,7 +199,7 @@ function addIntern(){
 // This creates the intern card and puts it into the final string.
 function createIntern(intern){
   internString = internString.concat(
-  `<div class="card border-info mb-3" style="width: 18rem;">
+  `<div class="card border-info mb-3">
     <div class="card-header">
       ${intern.name}<br>
       &#x1F95B; ${intern.getRole()}
@@ -213,26 +214,9 @@ function createIntern(intern){
   menu()
 }
 
-// This adds the engineers.
-function writeEngineers(){
-  finalString = finalString.concat(engineerString)
-  writeInterns()
-}
-
-// This adds the interns.
-function writeInterns(){
-  finalString = finalString.concat(internString)
-  addFooter()
-}
-
-// This adds the rest of the html to the final string before it gets written to file.
-function addFooter(){
-  finalString = finalString.concat(footerString)
-  writeHtml()
-}
-
 // This function takes the final string and writes it to a new index.HTML file in the root.
 function writeHtml(){
+  finalString = finalString.concat(engineerString).concat(internString).concat(footerString)
   fs.writeFile("index.html", finalString, (err) => {
     if(err){
       console.log(err)

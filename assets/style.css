@@ -1,4 +1,8 @@
-main{
+main {
   display: flex;
   flex-wrap: wrap;
+}
+
+main .card {
+  width: 18rem;
 }
