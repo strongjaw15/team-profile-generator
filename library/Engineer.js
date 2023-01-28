@@ -13,4 +13,26 @@ class Engineer extends Employee {
   }
 }
 
-module.exports = Engineer
+const engineerQuestions = [
+  {
+    type: "input",
+    message: "Please enter the engineer's name:",
+    name: "name"
+  },
+  {
+    type: "input",
+    message: "Please enter the engineer's employee ID:",
+    name: "id"
+  },
+  {
+    type: "input",
+    message: "Please enter the engineer's email address:",
+    name: "email"
+  },
+  {
+    type: "input",
+    message: "Please enter the engineer's GitHub username:",
+    name: "github"
+  }]
+
+module.exports = {Engineer, engineerQuestions}

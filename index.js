@@ -1,12 +1,9 @@
 const inquirer = require("inquirer")
 const fs = require("fs")
 
-//echo \"Error: no test specified\" && exit 1 // This is from the test param in package.
-
-// const Employee = require("./library/Employee")
-const Engineer = require("./library/Engineer")
-const Intern = require("./library/Intern")
-const Manager = require("./library/Manager")
+const {Engineer, engineerQuestions} = require("./library/Engineer")
+const {Intern, internQuestions} = require("./library/Intern")
+const {Manager, managerQuestions} = require("./library/Manager")
 
 let finalString = 
 `<!DOCTYPE html>
@@ -41,35 +38,14 @@ const footerString =
 </body>
 </html>`
 
-// This is the start function, which calls up the getManager function from the Manager class.
+// This is the start function, which calls up the getManager function.
 function start(){
     getManager()
 }
 
 // This creates a new manager object.
 function getManager(){
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "Please enter the team manager's name:",
-      name: "name"
-    },
-    {
-      type: "input",
-      message: "Please enter the team manager's employee ID:",
-      name: "id"
-    },
-    {
-      type: "input",
-      message: "Please enter the team manager's email address:",
-      name: "email"
-    },
-    {
-      type: "input",
-      message: "Please enter the team manager's office number:",
-      name: "officeNumber"
-    }
-  ])
+  inquirer.prompt(managerQuestions)
   .then(data => {
     const manager = new Manager(data.name, data.id, data.email, data.officeNumber)
     createManager(manager)
@@ -78,20 +54,19 @@ function getManager(){
 
 // This creates the manager card and puts it into the final string.
 function createManager(manager){
-  const managerString = 
-  `<div class="card border-primary mb-3">
-    <div class="card-header">
-      ${manager.name}<br>
-      &#x1F377; ${manager.getRole()}
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">ID: ${manager.id}</li>
-      <li class="list-group-item">Email: <a href="mailto:${manager.email}" target="_blank" rel="noopener noreferrer">${manager.email}</a></li>
-      <li class="list-group-item">Office Number: ${manager.officeNumber}</li>
-    </ul>
-  </div>`
+  finalString = finalString.concat(
+    `<div class="card border-primary mb-3">
+      <div class="card-header">
+        ${manager.getName()}<br>
+        &#x1F377; ${manager.getRole()}
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${manager.getId()}</li>
+        <li class="list-group-item">Email: <a href="mailto:${manager.getEmail()}" target="_blank" rel="noopener noreferrer">${manager.getEmail()}</a></li>
+        <li class="list-group-item">Office Number: ${manager.officeNumber}</li>
+      </ul>
+    </div>`)
 
-  finalString = finalString.concat(managerString)
   menu()
 }
 
@@ -114,34 +89,12 @@ const menu = () => {
       case "Finish Building Team": writeHtml()
         break;
     }
-  }
-  )
+  })
 }
 
 // This creates a new engineer object.
 function addEngineer(){
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "Please enter the engineer's name:",
-      name: "name"
-    },
-    {
-      type: "input",
-      message: "Please enter the engineer's employee ID:",
-      name: "id"
-    },
-    {
-      type: "input",
-      message: "Please enter the engineer's email address:",
-      name: "email"
-    },
-    {
-      type: "input",
-      message: "Please enter the engineer's GitHub username:",
-      name: "github"
-    }
-  ])
+  inquirer.prompt(engineerQuestions)
   .then(data => {
     const engineer = new Engineer(data.name, data.id, data.email, data.github)
     createEngineer(engineer)
@@ -151,45 +104,24 @@ function addEngineer(){
 // This creates the engineer card and puts it into the final string.
 function createEngineer(engineer){
   engineerString = engineerString.concat(
-  `<div class="card border-success mb-3">
-    <div class="card-header">
-      ${engineer.name}<br>
-      &#x1F37A; ${engineer.getRole()}
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">ID: ${engineer.id}</li>
-      <li class="list-group-item">Email: <a href="mailto:${engineer.email}" target="_blank" rel="noopener noreferrer">${engineer.email}</a></li>
-      <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}" target="_blank">${engineer.getGithub()}</a></li>
-    </ul>
-  </div>`
+    `<div class="card border-success mb-3">
+      <div class="card-header">
+        ${engineer.getName()}<br>
+        &#x1F37A; ${engineer.getRole()}
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${engineer.getId()}</li>
+        <li class="list-group-item">Email: <a href="mailto:${engineer.getEmail()}" target="_blank" rel="noopener noreferrer">${engineer.getEmail()}</a></li>
+        <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.getGithub()}" target="_blank">${engineer.getGithub()}</a></li>
+      </ul>
+    </div>`
   )
   menu()
 }
 
-// This creates a new manager object.
+// This creates a new intern object.
 function addIntern(){
-  inquirer.prompt([
-    {
-      type: "input",
-      message: "Please enter the intern's name:",
-      name: "name"
-    },
-    {
-      type: "input",
-      message: "Please enter the intern's employee ID:",
-      name: "id"
-    },
-    {
-      type: "input",
-      message: "Please enter the intern's email address:",
-      name: "email"
-    },
-    {
-      type: "input",
-      message: "Please enter the intern's school:",
-      name: "school"
-    }
-  ])
+  inquirer.prompt(internQuestions)
   .then(data => {
     const intern = new Intern(data.name, data.id, data.email, data.school)
     createIntern(intern)
@@ -199,17 +131,17 @@ function addIntern(){
 // This creates the intern card and puts it into the final string.
 function createIntern(intern){
   internString = internString.concat(
-  `<div class="card border-info mb-3">
-    <div class="card-header">
-      ${intern.name}<br>
-      &#x1F95B; ${intern.getRole()}
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item">ID: ${intern.id}</li>
-      <li class="list-group-item">Email: <a href="mailto:${intern.email}" target="_blank" rel="noopener noreferrer">${intern.email}</a></li>
-      <li class="list-group-item">School: ${intern.getSchool()}</li>
-    </ul>
-  </div>`
+    `<div class="card border-info mb-3">
+      <div class="card-header">
+        ${intern.getName()}<br>
+        &#x1F95B; ${intern.getRole()}
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">ID: ${intern.getId()}</li>
+        <li class="list-group-item">Email: <a href="mailto:${intern.getEmail()}" target="_blank" rel="noopener noreferrer">${intern.getEmail()}</a></li>
+        <li class="list-group-item">School: ${intern.getSchool()}</li>
+      </ul>
+    </div>`
   )
   menu()
 }

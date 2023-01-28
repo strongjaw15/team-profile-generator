@@ -10,4 +10,27 @@ class Manager extends Employee {
   }
 }
 
-module.exports = Manager
+managerQuestions = [
+  {
+    type: "input",
+    message: "Please enter the team manager's name:",
+    name: "name"
+  },
+  {
+    type: "input",
+    message: "Please enter the team manager's employee ID:",
+    name: "id"
+  },
+  {
+    type: "input",
+    message: "Please enter the team manager's email address:",
+    name: "email"
+  },
+  {
+    type: "input",
+    message: "Please enter the team manager's office number:",
+    name: "officeNumber"
+  }]
+
+
+module.exports = {Manager, managerQuestions}

@@ -13,4 +13,26 @@ class Intern extends Employee {
   }
 }
 
-module.exports = Intern
+const internQuestions = [
+  {
+    type: "input",
+    message: "Please enter the intern's name:",
+    name: "name"
+  },
+  {
+    type: "input",
+    message: "Please enter the intern's employee ID:",
+    name: "id"
+  },
+  {
+    type: "input",
+    message: "Please enter the intern's email address:",
+    name: "email"
+  },
+  {
+    type: "input",
+    message: "Please enter the intern's school:",
+    name: "school"
+  }]
+
+module.exports = {Intern, internQuestions}
